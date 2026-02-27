@@ -38,12 +38,12 @@ pipeline {
             }
         }
 
-        stage('Deploy to Render') {
-            steps {
-                sh '''
-                    curl -X POST $RENDER_DEPLOY_HOOK
-                '''
-            }
-        }
+        // stage('Deploy to Render') {
+        //     steps {
+        //         sh '''
+        //             curl -X POST $RENDER_DEPLOY_HOOK
+        //         '''
+        //     }
+        // }
     }
 }
