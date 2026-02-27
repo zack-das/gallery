@@ -1,18 +1,11 @@
 pipeline {
     agent any
 
-<<<<<<< HEAD
-    environment {
-=======
      environment {
->>>>>>> test
+
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
     }
 
-    stages {
-<<<<<<< HEAD
-
-=======
         stage('Checkout') {
             steps {
                 git branch: 'master',
@@ -20,7 +13,7 @@ pipeline {
             }
         }
         
->>>>>>> test
+
         stage('Verify Node') {
             steps {
                 sh 'node -v'
@@ -33,8 +26,6 @@ pipeline {
                 sh 'npm install'
             }
         }
-
-<<<<<<< HEAD
         
         stage('Deploy to Render') {
             steps {
@@ -44,8 +35,8 @@ pipeline {
             }
         }
     }
-=======
-          stage('Run Tests') {
+
+        stage('Run Tests') {
             steps {
                 sh 'npm test'
             }
@@ -69,5 +60,4 @@ pipeline {
     }
 
     
->>>>>>> test
 }
