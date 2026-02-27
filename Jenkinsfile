@@ -24,8 +24,7 @@ ipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
-                // If you want stricter CI behavior use:
-                // sh 'npm ci'
+               
             }
         }
 
