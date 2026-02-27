@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
-        SLACK_WEBHOOK     = credentials('slack-webhook')
+        SLACK_WEBHOOK = credentials('slack-token')
         RENDER_URL        = 'https://gallery-78pq.onrender.com'
     }
 
@@ -45,14 +45,18 @@ pipeline {
     post {
 
         success {
+        withCredentials([string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) {
             sh """
-            curl -X POST -H 'Content-type: application/json' \
-            --data '{
-              "text": "Build #${BUILD_NUMBER} deployed successfully!\\nView it here: ${RENDER_URL}"
-            }' \
-            $SLACK_WEBHOOK
+            curl -X POST https://slack.com/api/chat.postMessage \
+              -H "Authorization: Bearer $SLACK_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data '{
+                "channel": "#zack-ip1",
+                "text": "Build #${BUILD_NUMBER} deployed successfully!\\nView it here: ${RENDER_URL}"
+              }'
             """
         }
+    }
 
         failure {
             emailext(
@@ -63,3 +67,5 @@ pipeline {
         }
     }
 }
+
+
