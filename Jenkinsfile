@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/jonnygovish/gallery.git'
+                    url: 'https://github.com/zack-das/gallery.git'
             }
         }
 
