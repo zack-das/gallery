@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-     environment {
-
+    environment {
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
     }
+
+    stages {
 
         stage('Checkout') {
             steps {
@@ -12,7 +13,6 @@ pipeline {
                     url: 'https://github.com/zack-das/gallery.git'
             }
         }
-        
 
         stage('Verify Node') {
             steps {
@@ -26,15 +26,6 @@ pipeline {
                 sh 'npm install'
             }
         }
-        
-        stage('Deploy to Render') {
-            steps {
-                sh '''
-                    curl -X POST "$RENDER_DEPLOY_HOOK"
-                '''
-            }
-        }
-    }
 
         stage('Run Tests') {
             steps {
@@ -58,6 +49,4 @@ pipeline {
             )
         }
     }
-
-    
 }
