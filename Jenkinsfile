@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
-    }
+    // environment {
+    //     RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
+    // }
 
     stages {
 
