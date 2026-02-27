@@ -45,7 +45,10 @@ pipeline {
     post {
 
         success {
-        withCredentials([string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) {
+        withCredentials([
+            string(credentialsId: 'mongo-uri', variable: 'MONGO_URI'),
+            string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) 
+        {
             sh """
             curl -X POST https://slack.com/api/chat.postMessage \
               -H "Authorization: Bearer $SLACK_TOKEN" \
