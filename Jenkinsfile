@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
+        SLACK_WEBHOOK     = credentials('slack-webhook')
+        RENDER_URL        = 'https://gallery-78pq.onrender.com'
     }
 
     stages {
@@ -41,11 +43,22 @@ pipeline {
     }
 
     post {
+
+        success {
+            sh """
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "Build #${BUILD_NUMBER} deployed successfully!\\nView it here: ${RENDER_URL}"
+            }' \
+            $SLACK_WEBHOOK
+            """
+        }
+
         failure {
             emailext(
                 subject: "Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: "Something went wrong. Check Jenkins immediately.",
-                to: "your-email@gmail.com"
+                to: "izackdas@gmail.com"
             )
         }
     }
