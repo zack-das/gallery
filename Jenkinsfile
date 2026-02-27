@@ -4,6 +4,11 @@ pipeline {
     environment {
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
         SLACK_WEBHOOK = credentials('slack-token')
+        
+        MONGO_URI_PROD = credentials('mongo-uri-prod')
+        MONGO_URI_DEV  = credentials('mongo-uri-dev')
+        MONGO_URI_TEST = credentials('mongo-uri-test')
+
         RENDER_URL        = 'https://gallery-78pq.onrender.com'
     }
 
